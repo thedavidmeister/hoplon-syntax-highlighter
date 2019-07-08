@@ -7,7 +7,13 @@
 
 (defn to-element! [el]
  (el
-  (syntax-highlighter.hoplon/stylesheet)))
+  [
+   (syntax-highlighter.hoplon/stylesheet)
+   (h/h1 "Example of code rehighlighting and updating based on cell")
+   (let [i (j/cell (rand-int 100))
+         c (j/cell= (str "{:x " i "}"))]
+    (h/with-interval 1000 (reset! i (rand-int 100)))
+    (syntax-highlighter.hoplon/code c))]))
 
 (let [mountpoint (atom (h/div))]
  (defn remount! []

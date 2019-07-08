@@ -20,3 +20,15 @@
  [el]
  (j/with-let [el el]
   (h/with-dom el (highlight! el))))
+
+(defn code
+ ([code-cell] (code code-cell "clojure"))
+ ([code-cell lang]
+  (j/with-let [code-block (h/code)]
+   (code-block
+    :class/elem-lib lang
+    (j/formula-of
+     [code-cell]
+     (h/with-animation-frame (syntax-highlighter.hoplon/highlight! code-block))
+     ; cells of cells are common in examples
+     (pr-str code-cell))))))
