@@ -1,28 +1,20 @@
 let
- pkgs = import ./nixpkgs;
+ nix-shell-release-tag = "master";
+ nix-shell-release-sha256 = "16inglqqph2kxh30n7jc6gziyiiwbfx7qsqd17j08dnjmz4bpf4h";
 
- shell = pkgs.callPackage ./nix-shell { pkgs = pkgs; };
-
- # functions cannot be handled by mkDerivation
- derivation-safe-shell = (removeAttrs shell ["override" "overrideDerivation" "npx-bin"]);
+ nix-shell = import (fetchTarball {
+  url = "https://github.com/thedavidmeister/nix-shadow-cljs/tarball/${nix-shell-release-tag}";
+  sha256 = "${nix-shell-release-sha256}";
+ });
+ # holonix = import ../holonix;
 in
+with nix-shell.pkgs;
 {
- main = pkgs.stdenv.mkDerivation (derivation-safe-shell // {
-   buildInputs = []
-   ++ derivation-safe-shell.buildInputs
+ core-shell = stdenv.mkDerivation (nix-shell.shell // {
+  name = "core-shell";
 
-   ++ (pkgs.callPackage ./flush {
-     serve = import ./serve/config.nix;
-   }).buildInputs
-
-   ++ (pkgs.callPackage ./serve { }).buildInputs
-
-   ++ (pkgs.callPackage ./shadow-cljs { }).buildInputs
-   ;
-
-   shellHook = ''
-   npm install
-   '';
-
+  buildInputs = []
+   ++ nix-shell.shell.buildInputs
+  ;
  });
 }
