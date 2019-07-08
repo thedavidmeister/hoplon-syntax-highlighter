@@ -1,0 +1,25 @@
+{
+  "name": "hoplon-syntax-highlighter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thedavidmeister/hoplon-syntax-highlighter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thedavidmeister/hoplon-syntax-highlighter/issues"
+  },
+  "homepage": "https://github.com/thedavidmeister/hoplon-syntax-highlighter#readme",
+  "dependencies": {
+    "highlight.js": "^9.15.8",
+    "jquery": "^3.4.1",
+    "local-web-server": "^3.0.4",
+    "shadow-cljs": "^2.8.40"
+  }
+}
